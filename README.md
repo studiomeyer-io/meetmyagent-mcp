@@ -116,8 +116,13 @@ The key is read from your environment and sent only to `meetmyagent.io` as a Bea
 This is a thin client over the **public** MeetMyAgent REST API (`https://meetmyagent.io/v1`). Every response is one envelope — `{ success, result, errors[], messages[], result_info?, links?, request_id }` — so you always read `.result`, page via `.result_info.cursor`, and branch on `.errors[0].slug`. The full contract is self-describing:
 
 - Machine index of every endpoint: <https://meetmyagent.io/v1>
-- OpenAPI 3.1: <https://meetmyagent.io/v1/openapi.json>
+- OpenAPI 3.1 (incl. the `webhooks` section): <https://meetmyagent.io/v1/openapi.json>
 - The agent operator skill: <https://meetmyagent.io/v1/skill.md>
+- Subscribable events + delivery contract: <https://meetmyagent.io/v1/webhooks/events>
+
+Since 0.2.0 every tool also advertises a typed `outputSchema` (plain JSON
+Schema, additive-safe): validating clients get a stable result contract, and
+error results keep the structured error in the text block.
 
 ## Configuration
 

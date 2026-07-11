@@ -14,9 +14,74 @@ export interface Tool {
   name: string;
   description: string;
   inputSchema: Record<string, unknown>;
+  /**
+   * Typed results (0.2.0): plain JSON-Schema contract of the STRUCTURED
+   * result, advertised in tools/list. Conservative by design — `required`
+   * holds only fields the API always emits, and objects stay OPEN (JSON
+   * Schema's default `additionalProperties: true`) so additive API evolution
+   * never breaks a validating client. Success results always carry a
+   * structuredContent OBJECT matching this; error results carry none
+   * (validating clients only exempt errors WITHOUT structuredContent).
+   */
+  outputSchema?: Record<string, unknown>;
   account?: boolean;
   run(args: Record<string, unknown>, client: MmaClient): Promise<unknown>;
 }
+
+/* ── shared outputSchema fragments (mirror the public /v1 views) ── */
+
+const LISTING = {
+  type: "object",
+  description: "A public listing.",
+  properties: {
+    id: { type: "string" },
+    category: { type: "string" },
+    title: { type: "string" },
+    description: { type: "string" },
+    status: { type: "string", enum: ["draft", "active", "paused", "archived"] },
+    priceCents: { type: "number" },
+    currency: { type: "string" },
+    location: { type: "object" },
+    media: { type: "array", items: { type: "string" } },
+    attributes: { type: "object" },
+    aiVisibilityScore: { type: "number" },
+    ratingAvg: { type: "number" },
+    ratingCount: { type: "number" },
+    provider: { type: "object" },
+    domainVerified: { type: "boolean" },
+    boosted: { type: "boolean" },
+  },
+  required: ["id", "category", "title", "description", "status"],
+};
+
+const LINKS = {
+  type: "array",
+  description: "Next-action links — chain by following `rel`, never by rebuilding URLs.",
+  items: {
+    type: "object",
+    properties: { rel: { type: "string" }, method: { type: "string" }, href: { type: "string" } },
+    required: ["rel", "method", "href"],
+  },
+};
+
+const PAGE = {
+  type: "object",
+  description: "Pagination info.",
+  properties: { count: { type: "number" }, cursor: { type: ["string", "null"] } },
+};
+
+const BLOG_POST = {
+  type: "object",
+  properties: {
+    slug: { type: "string" },
+    locale: { type: "string" },
+    title: { type: "string" },
+    description: { type: "string" },
+    body: { type: "string" },
+    tags: { type: "array", items: { type: "string" } },
+  },
+  required: ["slug", "title"],
+};
 
 const q = (path: string, params: Record<string, unknown>): string => {
   const usp = new URLSearchParams();
@@ -29,8 +94,13 @@ export const PUBLIC_TOOLS: Tool[] = [
   {
     name: "mma_guide",
     description:
-      "ALWAYS call this first when a user connects or asks what MeetMyAgent is. Returns the live agent operator manual (invariants, the uniform response envelope, the search/list/deal flows, error recovery). Read it back to the user, then help them list or find something.",
+      "ALWAYS call this first when a user connects or asks what MeetMyAgent is. Returns the live agent operator manual (invariants, the uniform response envelope, the search/list/deal flows, webhooks, error recovery). Read it back to the user, then help them list or find something.",
     inputSchema: { type: "object", properties: {} },
+    outputSchema: {
+      type: "object",
+      properties: { skill: { type: "string", description: "The operator manual, markdown." } },
+      required: ["skill"],
+    },
     async run(_args, client) {
       return { skill: await client.text("/v1/skill.md") };
     },
@@ -42,6 +112,16 @@ export const PUBLIC_TOOLS: Tool[] = [
     inputSchema: {
       type: "object",
       properties: { category: { type: "string", description: "Optional category slug (e.g. products, businesses, ai-agents, real-estate)." } },
+    },
+    outputSchema: {
+      type: "object",
+      properties: {
+        categories: { type: "array", description: "All categories with live counts.", items: { type: "object" } },
+        category: { type: "object", description: "The requested category (when a slug was given)." },
+        facets: { type: "array", description: "Facet definitions: key, type, allowed values, distributions.", items: { type: "object" } },
+        usage: { type: "string" },
+      },
+      required: ["categories", "facets", "usage"],
     },
     async run(args, client) {
       const env = await client.get(q("/v1/catalog/schema", { category: args["category"] }));
@@ -75,6 +155,11 @@ export const PUBLIC_TOOLS: Tool[] = [
         limit: { type: "number", minimum: 1, maximum: 100 },
       },
     },
+    outputSchema: {
+      type: "object",
+      properties: { items: { type: "array", items: LISTING }, page: PAGE },
+      required: ["items"],
+    },
     async run(args, client) {
       const env = await client.post("/v1/catalog/search", args);
       return { items: env.result, page: env.result_info };
@@ -85,6 +170,11 @@ export const PUBLIC_TOOLS: Tool[] = [
     description:
       "Fetch one listing by id — full detail incl. the agent/provider behind it, the verified-business badge, and next-action `links`. The human-readable page is https://meetmyagent.io/en/listings/{id}.",
     inputSchema: { type: "object", properties: { id: { type: "string" } }, required: ["id"] },
+    outputSchema: {
+      type: "object",
+      properties: { listing: LISTING, links: LINKS },
+      required: ["listing"],
+    },
     async run(args, client) {
       const env = await client.get(`/v1/listings/${encodeURIComponent(String(args["id"]))}`);
       return { listing: env.result, links: env.links };
@@ -94,6 +184,16 @@ export const PUBLIC_TOOLS: Tool[] = [
     name: "mma_get_provider",
     description: "The public profile of a provider (the 'agent' behind listings), incl. its verified domains.",
     inputSchema: { type: "object", properties: { id: { type: "string" } }, required: ["id"] },
+    outputSchema: {
+      type: "object",
+      properties: {
+        id: { type: "string" },
+        name: { type: "string" },
+        bio: { type: "string" },
+        verifiedDomains: { type: "array", items: { type: "string" } },
+      },
+      required: ["id"],
+    },
     async run(args, client) {
       const env = await client.get(`/v1/providers/${encodeURIComponent(String(args["id"]))}`);
       return env.result;
@@ -110,6 +210,27 @@ export const PUBLIC_TOOLS: Tool[] = [
         tag: { type: "string" },
       },
     },
+    outputSchema: {
+      type: "object",
+      properties: {
+        requests: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              id: { type: "string" },
+              title: { type: "string" },
+              body: { type: "string" },
+              status: { type: "string", enum: ["open", "answered", "closed"] },
+              tags: { type: "array", items: { type: "string" } },
+            },
+            required: ["id", "title"],
+          },
+        },
+        page: PAGE,
+      },
+      required: ["requests"],
+    },
     async run(args, client) {
       const env = await client.get(q("/v1/requests", args));
       return { requests: env.result, page: env.result_info };
@@ -117,15 +238,26 @@ export const PUBLIC_TOOLS: Tool[] = [
   },
   {
     name: "mma_get_blog",
-    description: "Read the MeetMyAgent blog: a slug returns one post (+ locale), no slug lists published posts.",
+    description:
+      "Read the MeetMyAgent blog: a slug returns one post (as `post`), no slug lists published posts (as `posts`).",
     inputSchema: {
       type: "object",
       properties: { slug: { type: "string" }, locale: { type: "string", enum: ["en", "de"] } },
     },
+    outputSchema: {
+      type: "object",
+      properties: {
+        posts: { type: "array", description: "Published posts (list mode).", items: BLOG_POST },
+        post: { ...BLOG_POST, description: "One post (slug mode)." },
+        jsonld: { type: "object", description: "BlogPosting JSON-LD (slug mode)." },
+      },
+    },
     async run(args, client) {
       const slug = args["slug"] ? `/${encodeURIComponent(String(args["slug"]))}` : "";
       const env = await client.get(q(`/v1/blog${slug}`, { locale: args["locale"] }));
-      return env.result;
+      // structuredContent must be a JSON OBJECT (spec): the list mode returns a
+      // bare array → wrap as { posts }; the slug mode already IS { post, jsonld }
+      return Array.isArray(env.result) ? { posts: env.result } : env.result;
     },
   },
 ];
@@ -149,6 +281,11 @@ export const ACCOUNT_TOOLS: Tool[] = [
       },
       required: ["category", "title", "description"],
     },
+    outputSchema: {
+      type: "object",
+      properties: { listing: LISTING, links: LINKS },
+      required: ["listing"],
+    },
     async run(args, client) {
       const env = await client.post("/v1/listings", args, true);
       return { listing: env.result, links: env.links };
@@ -166,6 +303,17 @@ export const ACCOUNT_TOOLS: Tool[] = [
         text: { type: "string", description: "Or raw text describing the offer." },
       },
     },
+    outputSchema: {
+      type: "object",
+      properties: {
+        id: { type: "string", description: "Intake job id." },
+        status: { type: "string" },
+        draftListingId: { type: "string" },
+        sourceUrl: { type: "string" },
+        gapReport: { type: "object", description: "What is still missing before publish." },
+      },
+      required: ["id", "status"],
+    },
     async run(args, client) {
       const env = await client.post("/v1/intake/imports", args, true);
       return env.result;
@@ -176,6 +324,11 @@ export const ACCOUNT_TOOLS: Tool[] = [
     description: "List the listings under your own account (needs your API key).",
     account: true,
     inputSchema: { type: "object", properties: {} },
+    outputSchema: {
+      type: "object",
+      properties: { listings: { type: "array", items: LISTING } },
+      required: ["listings"],
+    },
     async run(_args, client) {
       const env = await client.get("/v1/listings?provider=me", true);
       return { listings: env.result };

@@ -22,7 +22,8 @@ Golden rules:
 1. Call mma_guide first — it returns the live operator manual.
 2. Describe before search: mma_describe_catalog for a category BEFORE mma_search or mma_create_listing. Facet keys + enum values come from the schema, never invented.
 3. Write listings in third-person agent voice ("Acme Studio offers …").
-4. Reads are anonymous; listing needs the user's own API key (MEETMYAGENT_API_KEY, scope listings:write, from meetmyagent.io/console). Escrow deals with human approval live on the hosted server meetmyagent.io/mcp — not here.`;
+4. Reads are anonymous; listing needs the user's own API key (MEETMYAGENT_API_KEY, scope listings:write, from meetmyagent.io/console). Escrow deals with human approval live on the hosted server meetmyagent.io/mcp — not here.
+5. Don't poll for platform events — GET https://meetmyagent.io/v1/webhooks/events describes every subscribable event + the signed delivery contract (describe before you subscribe).`;
 
 export function createServer(opts: { baseUrl: string; token?: string | undefined }): Server {
   const client = new MmaClient({ baseUrl: opts.baseUrl, token: opts.token });
@@ -30,12 +31,25 @@ export function createServer(opts: { baseUrl: string; token?: string | undefined
   const byName = new Map(tools.map((t) => [t.name, t]));
 
   const server = new Server(
-    { name: "meetmyagent", version: VERSION },
+    {
+      name: "meetmyagent",
+      title: "MeetMyAgent",
+      version: VERSION,
+      websiteUrl: "https://meetmyagent.io",
+      icons: [{ src: "https://meetmyagent.io/icon.svg", mimeType: "image/svg+xml", sizes: ["any"] }],
+    },
     { capabilities: { tools: {}, resources: {} }, instructions: INSTRUCTIONS },
   );
 
   server.setRequestHandler(ListToolsRequestSchema, async () => ({
-    tools: tools.map((t) => ({ name: t.name, description: t.description, inputSchema: t.inputSchema })),
+    tools: tools.map((t) => ({
+      name: t.name,
+      description: t.description,
+      inputSchema: t.inputSchema,
+      // typed results (0.2.0) — advertised contract; success results always
+      // carry a matching structuredContent object, error results never do
+      ...(t.outputSchema ? { outputSchema: t.outputSchema } : {}),
+    })),
   }));
 
   server.setRequestHandler(CallToolRequestSchema, async (req) => {
