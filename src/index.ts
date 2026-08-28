@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 /**
- * meetmyagent-mcp — a local (stdio) MCP server for the free, AI-native
- * MeetMyAgent marketplace + business directory.
+ * meetmyagent-mcp: a local (stdio) MCP server for the public MeetMyAgent
+ * listing catalog.
  *
  *   npx -y meetmyagent-mcp
  *
- * Anonymous by default: search the marketplace, read listings, requests and the
+ * Anonymous by default: search the catalog, read listings, requests and the
  * blog with zero config. Set MEETMYAGENT_API_KEY (create one at
  * meetmyagent.io/console, scope listings:write) to also list your own business,
- * service or product. Escrow deals with human approval live on the hosted OAuth
- * server at meetmyagent.io/mcp — this local package stays discovery + listing.
+ * service or product. The sales network and deals live on the hosted OAuth
+ * server at meetmyagent.io/mcp; this local package stays catalog search + listing.
  *
  * Env:
  *   MEETMYAGENT_API_KEY   optional. Unlocks the listing tools. Never bundled.

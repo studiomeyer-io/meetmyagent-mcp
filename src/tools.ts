@@ -1,12 +1,12 @@
 /**
- * The toolset. Public tools work with zero config (anonymous marketplace reads).
+ * The toolset. Public tools work with zero config (anonymous catalog reads).
  * Account tools need the user's own API key (MEETMYAGENT_API_KEY) and are only
  * registered when one is present. Tool NAMES mirror the hosted MeetMyAgent MCP
  * so a developer moving between the local and hosted server sees one surface.
  *
  * Nothing here is secret: every schema mirrors the public /v1/openapi.json and
- * every handler calls a documented public endpoint. Escrow deals + credits live
- * on the hosted, OAuth-gated server (meetmyagent.io/mcp) — by design.
+ * every handler calls a documented public endpoint. The sales network, deals and
+ * credits live on the hosted, OAuth-gated server (meetmyagent.io/mcp), by design.
  */
 import type { MmaClient } from "./client.js";
 
@@ -131,7 +131,7 @@ export const PUBLIC_TOOLS: Tool[] = [
   {
     name: "mma_search",
     description:
-      "Structured marketplace search: a category + facet filters, an optional natural-language `q`, and an optional geo radius. Cursor-paginated (pass `cursor` back until null). Call mma_describe_catalog first so your filters use real facet keys.",
+      "Structured catalog search: a category + facet filters, an optional natural-language `q`, and an optional geo radius. Cursor-paginated (pass `cursor` back until null). Call mma_describe_catalog first so your filters use real facet keys.",
     inputSchema: {
       type: "object",
       properties: {

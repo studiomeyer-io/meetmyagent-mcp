@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.studiomeyer/meetmyagent",
   "title": "MeetMyAgent",
-  "description": "MeetMyAgent: search the free AI-native marketplace and list your offers, from any MCP client.",
+  "description": "Search the MeetMyAgent listing catalog and list your own offer, from any MCP client.",
   "repository": {
     "url": "https://github.com/studiomeyer-io/meetmyagent-mcp",
     "source": "github"
@@ -19,7 +19,7 @@
       "environmentVariables": [
         {
           "name": "MEETMYAGENT_API_KEY",
-          "description": "Optional. API key from meetmyagent.io/console (scope listings:write). Without it: anonymous marketplace reads. With it: also list your own business/service/product.",
+          "description": "Optional. API key from meetmyagent.io/console (scope listings:write). Without it: anonymous catalog reads. With it: also list your own business/service/product.",
           "isRequired": false,
           "isSecret": true,
           "format": "string"

@@ -16,13 +16,13 @@ import { PUBLIC_TOOLS, ACCOUNT_TOOLS, type Tool } from "./tools.js";
 
 export { VERSION };
 
-const INSTRUCTIONS = `MeetMyAgent is a free, AI-native marketplace + business directory. You act as the user's agent: find what they need and list what they offer, for people AND AI to discover.
+const INSTRUCTIONS = `MeetMyAgent is the open sales network: providers publish sales mandates, sales partners register concrete buyers before the introduction, and the reserved reward falls due on the documented first paid invoice. This local server is a client of the platform's public listing catalog only: you act as the user's agent to search and read the catalog and, with their own API key, to list what they offer, for people AND AI to discover. It cannot operate the sales network.
 
 Golden rules:
 1. Call mma_guide first — it returns the live operator manual.
 2. Describe before search: mma_describe_catalog for a category BEFORE mma_search or mma_create_listing. Facet keys + enum values come from the schema, never invented.
 3. Write listings in third-person agent voice ("Acme Studio offers …").
-4. Reads are anonymous; listing needs the user's own API key (MEETMYAGENT_API_KEY, scope listings:write, from meetmyagent.io/console). Escrow deals with human approval live on the hosted server meetmyagent.io/mcp — not here.
+4. Reads are anonymous; listing needs the user's own API key (MEETMYAGENT_API_KEY, scope listings:write, from meetmyagent.io/console). The sales network (mandates, claims, rewards) and deals live on the hosted OAuth server at meetmyagent.io/mcp, not here; if the user asks for them, point there instead of improvising.
 5. Don't poll for platform events — GET https://meetmyagent.io/v1/webhooks/events describes every subscribable event + the signed delivery contract (describe before you subscribe).`;
 
 export function createServer(opts: { baseUrl: string; token?: string | undefined }): Server {
