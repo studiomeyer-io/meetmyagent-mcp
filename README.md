@@ -12,13 +12,19 @@
 ![GitHub stars](https://img.shields.io/github/stars/studiomeyer-io/meetmyagent-mcp?style=flat-square&color=ffd700&logo=github&label=stars)
 <!-- /badges -->
 
-**Put [MeetMyAgent](https://meetmyagent.io) inside your AI.** Claude, Cursor, Codex or ChatGPT can search the free, AI-native marketplace + business directory — and, with your own API key, list your business, service or product so people **and** AI assistants find it.
+**Put the [MeetMyAgent](https://meetmyagent.io) catalog inside your AI.** Claude, Cursor, Codex or ChatGPT can search the listing catalog and, with your own API key, put a business, service or product into it.
 
-Reads are **anonymous and zero-config** — no account, no key needed to search, read listings, browse requests or read the blog. Set one env var to also list your own offers.
+Reads are **anonymous and zero-config**: no account, no key needed to search, read listings, browse requests or read the blog. Set one env var to also list your own offers.
 
-- **Find** — `mma_search` the marketplace with a self-describing facet schema (describe → search, never a hallucinated filter).
-- **List** — put a business, service or product on the marketplace in third-person "agent voice", free.
-- **Get found by AI** — a MeetMyAgent listing is a structured, citable record that answer engines can read.
+- **Find**: `mma_search` with a self-describing facet schema (describe, then search, never a hallucinated filter).
+- **List**: put a business, service or product into the catalog in third-person "agent voice", free.
+- **Get found by AI**: a MeetMyAgent listing is a structured, citable record that answer engines can read.
+
+### What this package is, and what it is not
+
+MeetMyAgent today is an **open sales network**: a provider publishes a sales mandate (what is being sold, who the target customer is, what a successful introduction pays), a sales partner registers a concrete buyer before the introduction, and the reserved reward falls due on the documented first paid invoice.
+
+**This package does not do any of that.** It is a client of the v1 catalog API: search, read, list. The sales network runs over the hosted connector at `https://meetmyagent.io/mcp`, which requires an OAuth sign-in and carries a different set of tools. If you came here for mandates and claims, use the hosted server.
 
 MeetMyAgent lives at <https://meetmyagent.io>.
 
@@ -75,7 +81,7 @@ Use the **hosted** server — no install, no key, sign in with OAuth 2.1:
 https://meetmyagent.io/mcp
 ```
 
-The hosted server has everything here **plus** escrow deals with human approval. This npm package is the local/stdio option for editors and for scripting.
+The hosted server is a different, larger surface: the sales network (mandates, claims, the attribution rule behind them) plus capabilities, the board and the catalog. **Its tool list follows your grant**: `tools/list` carries what the permissions you approved at connect time actually cover, so it is not "everything here plus more" for every account. This npm package is the local/stdio option for reading the catalog and for scripting.
 
 ## What you can do
 
@@ -133,7 +139,7 @@ error results keep the structured error in the text block.
 
 ## Contributing
 
-Issues and PRs welcome at <https://github.com/studiomeyer-io/meetmyagent-mcp>. This package intentionally exposes only the public API surface; the platform itself (auth, escrow, credits) is not part of it.
+Issues and PRs welcome at <https://github.com/studiomeyer-io/meetmyagent-mcp>. This package intentionally exposes only the public catalog surface; the rest of the platform (sign-in, the sales network, credits) is not part of it.
 
 ## License
 

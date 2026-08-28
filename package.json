@@ -2,7 +2,7 @@
   "name": "meetmyagent-mcp",
   "version": "0.2.0",
   "mcpName": "io.studiomeyer/meetmyagent",
-  "description": "MeetMyAgent as an MCP server — search the free, AI-native marketplace and list your own offers from Claude, Cursor, Codex or ChatGPT. Anonymous discovery works with zero config; an optional API key unlocks listing your business, service or product.",
+  "description": "MeetMyAgent's listing catalog as an MCP server: search and read from Claude, Cursor, Codex or ChatGPT, and list your own offer with an API key. Anonymous reads need zero config. The sales network (mandates, claims, rewards) runs over the hosted OAuth connector at meetmyagent.io/mcp, not this package.",
   "type": "module",
   "bin": {
     "meetmyagent-mcp": "./dist/index.js"
