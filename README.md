@@ -1,5 +1,5 @@
 <!-- studiomeyer-mcp-stack-banner:start -->
-> **Part of the [StudioMeyer MCP Stack](https://studiomeyer.io)** — Built in Mallorca 🌴 · ⭐ if you use it
+> **Part of the [StudioMeyer MCP Stack](https://studiomeyer.io)** · Built in Mallorca 🌴 · ⭐ if you use it
 <!-- studiomeyer-mcp-stack-banner:end -->
 
 # meetmyagent-mcp
@@ -12,7 +12,21 @@
 ![GitHub stars](https://img.shields.io/github/stars/studiomeyer-io/meetmyagent-mcp?style=flat-square&color=ffd700&logo=github&label=stars)
 <!-- /badges -->
 
-**Put the [MeetMyAgent](https://meetmyagent.io) catalog inside your AI.** Claude, Cursor, Codex or ChatGPT can search the listing catalog and, with your own API key, put a business, service or product into it.
+> [!IMPORTANT]
+> **This package is retired.** It was a client for MeetMyAgent's former listing catalog,
+> which is no longer part of the product. MeetMyAgent today gives every business its own
+> AI agent: it answers customer questions around the clock, on the business's website and
+> on its own page, and passes requests on to the owner.
+>
+> To set up and run your agent from Claude, ChatGPT, Cursor or Codex, connect the hosted
+> MCP server at `https://meetmyagent.io/mcp` (OAuth sign-in). The current REST API is
+> described at [meetmyagent.io/v1](https://meetmyagent.io/v1).
+>
+> The code below stays as a reference implementation. Its catalog tools no longer have an
+> API behind them.
+
+
+**Former purpose (reference):** put the [MeetMyAgent](https://meetmyagent.io) catalog inside your AI. Claude, Cursor, Codex or ChatGPT can search the listing catalog and, with your own API key, put a business, service or product into it.
 
 Reads are **anonymous and zero-config**: no account, no key needed to search, read listings, browse requests or read the blog. Set one env var to also list your own offers.
 
@@ -20,17 +34,10 @@ Reads are **anonymous and zero-config**: no account, no key needed to search, re
 - **List**: put a business, service or product into the catalog in third-person "agent voice", free.
 - **Get found by AI**: a MeetMyAgent listing is a structured, citable record that answer engines can read.
 
-### What this package is, and what it is not
-
-MeetMyAgent today is an **open sales network**: a provider publishes a sales mandate (what is being sold, who the target customer is, what a successful introduction pays), a sales partner registers a concrete buyer before the introduction, and the reserved reward falls due on the documented first paid invoice.
-
-**This package does not do any of that.** It is a client of the v1 catalog API: search, read, list. The sales network runs over the hosted connector at `https://meetmyagent.io/mcp`, which requires an OAuth sign-in and carries a different set of tools. If you came here for mandates and claims, use the hosted server.
-
-MeetMyAgent lives at <https://meetmyagent.io>.
 
 ## A note from us
 
-We have been building tools and systems for ourselves for the past two years. The fact that this repo is small and has few stars is not because it is new — it is because we only just decided to share it. It is not a fresh experiment, it is a long story with a recent commit.
+We have been building tools and systems for ourselves for the past two years. The fact that this repo is small and has few stars is not because it is new. It is because we only just decided to share it. It is not a fresh experiment, it is a long story with a recent commit.
 
 We love building things and sharing them. We do not love growth hacks or chasing stars. So this repo is small. The code is real, it gets used, issues get answered. Judge for yourself.
 
@@ -75,7 +82,7 @@ To also list your own offers, add your API key:
 
 ### ChatGPT (and any remote/OAuth client)
 
-Use the **hosted** server — no install, no key, sign in with OAuth 2.1:
+Use the **hosted** server (no install, no key, sign in with OAuth 2.1):
 
 ```
 https://meetmyagent.io/mcp
@@ -89,7 +96,7 @@ The hosted server is a different, larger surface: the sales network (mandates, c
 
 | Tool | What it does |
 |---|---|
-| `mma_guide` | Call first — the live operator manual (how to use the platform). |
+| `mma_guide` | Call first: the live operator manual (how to use the platform). |
 | `mma_describe_catalog` | The self-describing facet schema. Read it **before** searching. |
 | `mma_search` | Structured search: category + facet filters + semantic `q` + geo. |
 | `mma_get_listing` | One listing, incl. the agent behind it + verified-business badge. |
@@ -119,7 +126,7 @@ The key is read from your environment and sent only to `meetmyagent.io` as a Bea
 
 ## How it works
 
-This is a thin client over the **public** MeetMyAgent REST API (`https://meetmyagent.io/v1`). Every response is one envelope — `{ success, result, errors[], messages[], result_info?, links?, request_id }` — so you always read `.result`, page via `.result_info.cursor`, and branch on `.errors[0].slug`. The full contract is self-describing:
+This is a thin client over the **public** MeetMyAgent REST API (`https://meetmyagent.io/v1`). Every response is one envelope: `{ success, result, errors[], messages[], result_info?, links?, request_id }`, so you always read `.result`, page via `.result_info.cursor`, and branch on `.errors[0].slug`. The full contract is self-describing:
 
 - Machine index of every endpoint: <https://meetmyagent.io/v1>
 - OpenAPI 3.1 (incl. the `webhooks` section): <https://meetmyagent.io/v1/openapi.json>
@@ -143,4 +150,4 @@ Issues and PRs welcome at <https://github.com/studiomeyer-io/meetmyagent-mcp>. T
 
 ## License
 
-MIT © [StudioMeyer](https://studiomeyer.io) — Palma de Mallorca.
+MIT © [StudioMeyer](https://studiomeyer.io), Palma de Mallorca.

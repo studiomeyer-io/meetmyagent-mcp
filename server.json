@@ -2,37 +2,12 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.studiomeyer/meetmyagent",
   "title": "MeetMyAgent",
-  "description": "Search the MeetMyAgent listing catalog and list your own offer, from any MCP client.",
+  "description": "Give your business its own AI agent and run it from any MCP client: set it up, go live, read requests.",
   "repository": {
     "url": "https://github.com/studiomeyer-io/meetmyagent-mcp",
     "source": "github"
   },
-  "version": "0.2.0",
-  "packages": [
-    {
-      "registryType": "npm",
-      "identifier": "meetmyagent-mcp",
-      "version": "0.2.0",
-      "transport": {
-        "type": "stdio"
-      },
-      "environmentVariables": [
-        {
-          "name": "MEETMYAGENT_API_KEY",
-          "description": "Optional. API key from meetmyagent.io/console (scope listings:write). Without it: anonymous catalog reads. With it: also list your own business/service/product.",
-          "isRequired": false,
-          "isSecret": true,
-          "format": "string"
-        },
-        {
-          "name": "MEETMYAGENT_API_URL",
-          "description": "Optional. API base URL. Default https://meetmyagent.io.",
-          "isRequired": false,
-          "format": "string"
-        }
-      ]
-    }
-  ],
+  "version": "0.3.0",
   "remotes": [
     {
       "type": "streamable-http",
