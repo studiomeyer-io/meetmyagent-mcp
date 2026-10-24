@@ -1,0 +1,4 @@
+interface:
+  display_name: "MeetMyAgent Offers"
+  short_description: "Maintain structured offers, prices, and photos"
+  default_prompt: "Use $meetmyagent-offer-catalog to update my offers and photos while preserving the rest of my existing catalog."

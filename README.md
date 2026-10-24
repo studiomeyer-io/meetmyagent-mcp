@@ -50,12 +50,18 @@ Current contracts and installation guides:
 - [TypeScript SDK](https://www.npmjs.com/package/meetmyagent-sdk)
 - [CLI](https://www.npmjs.com/package/meetmyagent)
 
-## Legacy npm client
+## Official Claude plugin
 
-The `meetmyagent-mcp` npm package and the source client in this repository are retired. They targeted the former listing catalog, whose API is no longer part of the product. Use the hosted MCP endpoint above for the current product. The new skills do not require or revive that retired npm client.
+The current [official plugin](plugins/meetmyagent) includes the hosted OAuth MCP endpoint, three current skills and the official MMA icon. For a directory review, use this repository with plugin path `plugins/meetmyagent`. This prepares the artifact; no directory listing or approval is claimed.
+
+## Retired client
+
+The npm package `meetmyagent-mcp` and its source client are retired. Use the hosted endpoint above.
 
 ## Contributing and license
 
 Issues and improvements are welcome in this repository. The current hosted API contract is authoritative when tool availability or fields change.
 
-MIT. Maintained by [StudioMeyer](https://studiomeyer.io), Palma de Mallorca.
+The existing client and separately published root `skills/` retain their [MIT license](LICENSE). The official package in `plugins/meetmyagent/` has its own [limited, non-exclusive official-plugin permission](plugins/meetmyagent/LICENSE), with [separate source notices](plugins/meetmyagent/THIRD_PARTY_NOTICES). Its logo is reserved except for display in the official plugin, its listings and its promotion. The plugin package has no general MIT grant.
+
+Maintained by [StudioMeyer](https://studiomeyer.io), Palma de Mallorca.
