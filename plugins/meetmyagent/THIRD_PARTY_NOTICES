@@ -1,20 +1,30 @@
 Separate source component notices
 
-The following six files are copied without changes from the already
+The following three bundled SKILL.md files are derived from the already
 published source at commit 053499228f60997eb05337c5e2591f50ac7a03c8:
 https://github.com/studiomeyer-io/meetmyagent-mcp/tree/053499228f60997eb05337c5e2591f50ac7a03c8/skills
 
 - skills/meetmyagent-agent-setup/SKILL.md
-- skills/meetmyagent-agent-setup/agents/openai.yaml
 - skills/meetmyagent-offer-catalog/SKILL.md
-- skills/meetmyagent-offer-catalog/agents/openai.yaml
 - skills/meetmyagent-provider-search/SKILL.md
+
+The only changes are in their connection/reference paragraphs: the remote
+operator-guide instruction is removed and API references are limited to
+endpoint, scope and schema data. Their remaining workflow text is unchanged.
+The original source portions retain the pre-existing MIT license below.
+Package-specific edits are covered by the limited permission in LICENSE.
+
+The following three UI metadata files are copied without changes from that
+same published source and retain its pre-existing MIT license:
+
+- skills/meetmyagent-agent-setup/agents/openai.yaml
+- skills/meetmyagent-offer-catalog/agents/openai.yaml
 - skills/meetmyagent-provider-search/agents/openai.yaml
 
-That source was separately published under the MIT license below. This
-notice preserves that pre-existing license for those files only; it does
-not newly license the official plugin package or its branding under MIT.
-No additional skills license is granted by the package-level permission.
+These notices preserve the existing rights in those source components. They
+do not newly license the official plugin package or its branding under MIT,
+and do not withdraw or relicense any existing source rights. No general
+additional skills license is granted by the package-level permission.
 
 Source license:
 https://github.com/studiomeyer-io/meetmyagent-mcp/blob/053499228f60997eb05337c5e2591f50ac7a03c8/LICENSE

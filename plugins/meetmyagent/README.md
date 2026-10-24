@@ -16,6 +16,10 @@ Review changes to live profiles and approve publication explicitly. Recording an
 
 Current contracts: https://meetmyagent.io/auth.md and https://meetmyagent.io/v1/openapi.json. Connection guide: https://meetmyagent.io/en/connect.
 
+## Pricing
+
+The official plugin is free to install and use. Basic platform use is available on Free. Additional AI Shop platform capacity is optional and paid; there is no separate fee for plugin installation or access.
+
 ## License
 
 Installation, use and distribution of the official plugin in ChatGPT and Claude, including platform listing, are permitted under the limited, non-exclusive permission in LICENSE. The official MMA logo may be shown in that plugin, its listings and its promotion; other trademark rights remain reserved. This package does not grant a general MIT license. Pre-existing licenses for separately published source files remain unchanged; see THIRD_PARTY_NOTICES.
