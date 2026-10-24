@@ -1,7 +1,7 @@
 {
   "name": "meetmyagent",
   "version": "0.2.0",
-  "description": "Manage a business agent, prepare reviewed offers, read enquiries and find public service providers.",
+  "description": "Turn your offers and expertise into an AI agent you control. Review before publishing, handle enquiries, and discover service providers.",
   "author": {
     "name": "StudioMeyer",
     "email": "hello@studiomeyer.io",
@@ -18,5 +18,7 @@
   "documentationUrl": "https://meetmyagent.io/en/connect",
   "supportUrl": "https://meetmyagent.io/en/impressum",
   "privacyPolicyUrl": "https://meetmyagent.io/en/datenschutz",
-  "termsOfServiceUrl": "https://meetmyagent.io/en/agb"
+  "termsOfServiceUrl": "https://meetmyagent.io/en/agb",
+  "displayName": "MeetMyAgent",
+  "repository": "https://github.com/studiomeyer-io/meetmyagent-mcp"
 }
