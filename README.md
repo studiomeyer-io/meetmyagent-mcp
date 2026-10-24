@@ -1,153 +1,61 @@
 <!-- studiomeyer-mcp-stack-banner:start -->
-> **Part of the [StudioMeyer MCP Stack](https://studiomeyer.io)** · Built in Mallorca 🌴 · ⭐ if you use it
+> Part of the [StudioMeyer MCP Stack](https://studiomeyer.io)
 <!-- studiomeyer-mcp-stack-banner:end -->
 
-# meetmyagent-mcp
+# MeetMyAgent MCP and official agent skills
 
-<!-- badges -->
-[![npm version](https://img.shields.io/npm/v/meetmyagent-mcp?style=flat-square&color=cb3837&logo=npm&label=npm)](https://www.npmjs.com/package/meetmyagent-mcp)
-[![npm downloads](https://img.shields.io/npm/dm/meetmyagent-mcp?style=flat-square&color=cb3837&logo=npm&label=installs%2Fmo)](https://www.npmjs.com/package/meetmyagent-mcp)
-![License](https://img.shields.io/github/license/studiomeyer-io/meetmyagent-mcp?style=flat-square&color=22c55e&label=license)
-![Last commit](https://img.shields.io/github/last-commit/studiomeyer-io/meetmyagent-mcp?style=flat-square&color=88c0d0&label=updated)
-![GitHub stars](https://img.shields.io/github/stars/studiomeyer-io/meetmyagent-mcp?style=flat-square&color=ffd700&logo=github&label=stars)
-<!-- /badges -->
+[MeetMyAgent](https://meetmyagent.io) lets you prepare and manage your business agent, structured offers and enquiries from your own AI assistant. These official skills describe current workflows for the hosted MCP server.
 
-> [!IMPORTANT]
-> **This package is retired.** It was a client for MeetMyAgent's former listing catalog,
-> which is no longer part of the product. MeetMyAgent today gives every business its own
-> AI agent: it answers customer questions around the clock, on the business's website and
-> on its own page, and passes requests on to the owner.
->
-> To set up and run your agent from Claude, ChatGPT, Cursor or Codex, connect the hosted
-> MCP server at `https://meetmyagent.io/mcp` (OAuth sign-in). The current REST API is
-> described at [meetmyagent.io/v1](https://meetmyagent.io/v1).
->
-> The code below stays as a reference implementation. Its catalog tools no longer have an
-> API behind them.
-
-
-**Former purpose (reference):** put the [MeetMyAgent](https://meetmyagent.io) catalog inside your AI. Claude, Cursor, Codex or ChatGPT can search the listing catalog and, with your own API key, put a business, service or product into it.
-
-Reads are **anonymous and zero-config**: no account, no key needed to search, read listings, browse requests or read the blog. Set one env var to also list your own offers.
-
-- **Find**: `mma_search` with a self-describing facet schema (describe, then search, never a hallucinated filter).
-- **List**: put a business, service or product into the catalog in third-person "agent voice", free.
-- **Get found by AI**: a MeetMyAgent listing is a structured, citable record that answer engines can read.
-
-
-## A note from us
-
-We have been building tools and systems for ourselves for the past two years. The fact that this repo is small and has few stars is not because it is new. It is because we only just decided to share it. It is not a fresh experiment, it is a long story with a recent commit.
-
-We love building things and sharing them. We do not love growth hacks or chasing stars. So this repo is small. The code is real, it gets used, issues get answered. Judge for yourself.
-
-From a small studio in Palma de Mallorca.
-
-## Quick start
-
-### Claude Code
+## Install the skills
 
 ```bash
-claude mcp add meetmyagent -s user -- npx -y meetmyagent-mcp
+npx skills add studiomeyer-io/meetmyagent-mcp
 ```
 
-Then just say: *"Find an AI agent that monitors my brand"* or *"List my studio on MeetMyAgent."*
+Or select a capability:
 
-### Cursor / Claude Desktop / Codex
-
-```json
-{
-  "mcpServers": {
-    "meetmyagent": {
-      "command": "npx",
-      "args": ["-y", "meetmyagent-mcp"]
-    }
-  }
-}
+```bash
+npx skills add studiomeyer-io/meetmyagent-mcp --skill meetmyagent-agent-setup
+npx skills add studiomeyer-io/meetmyagent-mcp --skill meetmyagent-offer-catalog
+npx skills add studiomeyer-io/meetmyagent-mcp --skill meetmyagent-provider-search
 ```
 
-To also list your own offers, add your API key:
+| Skill | Use it for |
+| --- | --- |
+| [Agent setup](skills/meetmyagent-agent-setup/SKILL.md) | Prepare an agent, review private profile-import proposals and publish only after owner approval. |
+| [Offer catalog](skills/meetmyagent-offer-catalog/SKILL.md) | Maintain structured offers, exact prices, category attributes and owner-supplied photos without losing existing offers. |
+| [Provider search](skills/meetmyagent-provider-search/SKILL.md) | Find and compare current public providers and offers with sources, without contacting or buying. |
 
-```json
-{
-  "mcpServers": {
-    "meetmyagent": {
-      "command": "npx",
-      "args": ["-y", "meetmyagent-mcp"],
-      "env": { "MEETMYAGENT_API_KEY": "mma_key_…" }
-    }
-  }
-}
-```
+Installing a skill does not connect an account, grant permissions, publish an agent or start a subscription.
 
-### ChatGPT (and any remote/OAuth client)
+## Connect the hosted MCP server
 
-Use the **hosted** server (no install, no key, sign in with OAuth 2.1):
+For your own agent, add this Streamable HTTP endpoint in a client that supports remote MCP and browser OAuth:
 
-```
+```text
 https://meetmyagent.io/mcp
 ```
 
-The hosted server is a different, larger surface: the sales network (mandates, claims, the attribution rule behind them) plus capabilities, the board and the catalog. **Its tool list follows your grant**: `tools/list` carries what the permissions you approved at connect time actually cover, so it is not "everything here plus more" for every account. This npm package is the local/stdio option for reading the catalog and for scripting.
+Sign in and approve the permissions you need. The available tools follow that grant. Agent access and payment permissions are separate; granting a scope is not approval to spend.
 
-## What you can do
+For public, read-only provider discovery, use `https://meetmyagent.io/mcp?access=directory`. It needs no account and exposes `mma_search_agents`, `mma_get_agent` and `mma_find_matches`.
 
-**Public (no key):**
+Current contracts and installation guides:
 
-| Tool | What it does |
-|---|---|
-| `mma_guide` | Call first: the live operator manual (how to use the platform). |
-| `mma_describe_catalog` | The self-describing facet schema. Read it **before** searching. |
-| `mma_search` | Structured search: category + facet filters + semantic `q` + geo. |
-| `mma_get_listing` | One listing, incl. the agent behind it + verified-business badge. |
-| `mma_get_provider` | A provider's public profile + verified domains. |
-| `mma_list_requests` | Browse the demand side (what people are looking for). |
-| `mma_get_blog` | Read the blog. |
+- [Connect your AI](https://meetmyagent.io/en/connect)
+- [Developer resources](https://meetmyagent.io/en/developers)
+- [REST API documentation](https://meetmyagent.io/en/api)
+- [OpenAPI 3.1](https://meetmyagent.io/v1/openapi.json)
+- [OAuth and authentication](https://meetmyagent.io/auth.md)
+- [TypeScript SDK](https://www.npmjs.com/package/meetmyagent-sdk)
+- [CLI](https://www.npmjs.com/package/meetmyagent)
 
-**With your API key (`listings:write`):**
+## Legacy npm client
 
-| Tool | What it does |
-|---|---|
-| `mma_create_listing` | List a business, service or product (facet-validated). |
-| `mma_import_listing` | Zero-form listing: import a draft from a URL or pasted text. |
-| `mma_my_listings` | The listings under your account. |
+The `meetmyagent-mcp` npm package and the source client in this repository are retired. They targeted the former listing catalog, whose API is no longer part of the product. Use the hosted MCP endpoint above for the current product. The new skills do not require or revive that retired npm client.
 
-Two live **resources** are always available without a tool call: `mma://catalog/schema` and `mma://docs/skill`.
+## Contributing and license
 
-## Getting an API key (optional)
+Issues and improvements are welcome in this repository. The current hosted API contract is authoritative when tool availability or fields change.
 
-Only needed to *list*. Create one at **[meetmyagent.io/console](https://meetmyagent.io/console)** with the `listings:write` scope, then set:
-
-```bash
-export MEETMYAGENT_API_KEY="mma_key_…"
-```
-
-The key is read from your environment and sent only to `meetmyagent.io` as a Bearer token. It is never written anywhere by this package.
-
-## How it works
-
-This is a thin client over the **public** MeetMyAgent REST API (`https://meetmyagent.io/v1`). Every response is one envelope: `{ success, result, errors[], messages[], result_info?, links?, request_id }`, so you always read `.result`, page via `.result_info.cursor`, and branch on `.errors[0].slug`. The full contract is self-describing:
-
-- Machine index of every endpoint: <https://meetmyagent.io/v1>
-- OpenAPI 3.1 (incl. the `webhooks` section): <https://meetmyagent.io/v1/openapi.json>
-- The agent operator skill: <https://meetmyagent.io/v1/skill.md>
-- Subscribable events + delivery contract: <https://meetmyagent.io/v1/webhooks/events>
-
-Since 0.2.0 every tool also advertises a typed `outputSchema` (plain JSON
-Schema, additive-safe): validating clients get a stable result contract, and
-error results keep the structured error in the text block.
-
-## Configuration
-
-| Env var | Default | Purpose |
-|---|---|---|
-| `MEETMYAGENT_API_KEY` | *(none)* | Optional. Unlocks the listing tools. |
-| `MEETMYAGENT_API_URL` | `https://meetmyagent.io` | Override the API base (self-host / staging). |
-
-## Contributing
-
-Issues and PRs welcome at <https://github.com/studiomeyer-io/meetmyagent-mcp>. This package intentionally exposes only the public catalog surface; the rest of the platform (sign-in, the sales network, credits) is not part of it.
-
-## License
-
-MIT © [StudioMeyer](https://studiomeyer.io), Palma de Mallorca.
+MIT. Maintained by [StudioMeyer](https://studiomeyer.io), Palma de Mallorca.
