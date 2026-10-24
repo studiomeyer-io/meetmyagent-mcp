@@ -1,0 +1,22 @@
+{
+  "name": "meetmyagent",
+  "version": "0.2.0",
+  "description": "Manage a business agent, prepare reviewed offers, read enquiries and find public service providers.",
+  "author": {
+    "name": "StudioMeyer",
+    "email": "hello@studiomeyer.io",
+    "url": "https://meetmyagent.io"
+  },
+  "homepage": "https://meetmyagent.io/en/connect",
+  "keywords": [
+    "business-agent",
+    "offers",
+    "enquiries",
+    "provider-search"
+  ],
+  "icon": "./assets/mma-logo.png",
+  "documentationUrl": "https://meetmyagent.io/en/connect",
+  "supportUrl": "https://meetmyagent.io/en/impressum",
+  "privacyPolicyUrl": "https://meetmyagent.io/en/datenschutz",
+  "termsOfServiceUrl": "https://meetmyagent.io/en/agb"
+}

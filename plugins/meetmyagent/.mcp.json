@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "meetmyagent": {
+      "type": "http",
+      "url": "https://meetmyagent.io/mcp",
+      "oauth": {
+        "scopes": "agents:read agents:write"
+      }
+    }
+  }
+}

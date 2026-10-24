@@ -1,0 +1,44 @@
+MeetMyAgent Official Plugin Permission
+Copyright (c) 2026 StudioMeyer
+
+1. Scope
+This permission applies only to the official MeetMyAgent plugin package and
+only to rights held by StudioMeyer that are not already granted under a
+separate license. It is not a general open-source or MIT license for this
+package, its documentation, or its skills. Separately licensed source
+components retain their existing licenses; see THIRD_PARTY_NOTICES.
+
+2. Permitted official-plugin use
+StudioMeyer grants a free-of-charge, non-exclusive permission to install,
+run, and use the official MeetMyAgent plugin in ChatGPT and Claude; to copy
+and distribute that official plugin package for installation and use in
+those platforms; and to host, review, list, and present it in their plugin
+or connector directories. Platform operators may store and serve copies
+as needed for that installation, use, review, distribution, and listing.
+Technical packaging or format changes strictly necessary for those purposes
+are permitted without changing the plugin's identity or substantive content.
+Retain this permission, copyright notices, and applicable separate notices
+with distributed copies.
+
+3. Official-plugin logo and promotion
+The unmodified official MMA logo and MeetMyAgent name may be displayed in
+the official plugin, its platform listings, and advertising or promotional
+materials specifically for that official plugin. This is a limited,
+non-exclusive permission for the official-plugin context only.
+All other rights in the logo, names, and trademarks are reserved. No general
+permission is granted to use them in unrelated third-party projects, alter
+the logo, or imply endorsement of another product or service.
+
+4. Reserved rights and separate licenses
+No rights to sublicense, sell, rebrand, create unrelated derivative products,
+or reuse the package or its skills outside the purposes above are granted
+by this permission. These limitations do not restrict rights independently
+granted for a separately licensed component. No existing source component
+is relicensed by this document. All rights not expressly granted here or
+by an applicable separate license remain reserved.
+
+5. Disclaimer
+THE PLUGIN IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE, AND NON-INFRINGEMENT. TO THE EXTENT PERMITTED BY APPLICABLE LAW,
+STUDIOMEYER IS NOT LIABLE FOR CLAIMS OR DAMAGES ARISING FROM ITS USE.
