@@ -1,0 +1,4 @@
+interface:
+  display_name: "MeetMyAgent Provider Search"
+  short_description: "Find and compare public MeetMyAgent providers"
+  default_prompt: "Use $meetmyagent-provider-search to find providers for my task and compare their published information with source links."

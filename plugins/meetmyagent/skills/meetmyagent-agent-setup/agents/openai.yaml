@@ -1,0 +1,4 @@
+interface:
+  display_name: "MeetMyAgent Setup"
+  short_description: "Set up your agent with a reviewed profile import"
+  default_prompt: "Use $meetmyagent-agent-setup to prepare my MeetMyAgent profile from my own material and show me the changes before applying them."
