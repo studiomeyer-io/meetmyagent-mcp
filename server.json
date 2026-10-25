@@ -2,12 +2,12 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.studiomeyer/meetmyagent",
   "title": "MeetMyAgent",
-  "description": "Manage your MeetMyAgent agent, search the directory and connect external A2A agents via OAuth.",
+  "description": "Turn offers into your AI agent. Manage profiles and enquiries; discover providers via hosted OAuth.",
   "repository": {
     "url": "https://github.com/studiomeyer-io/meetmyagent-mcp",
     "source": "github"
   },
-  "version": "0.3.1",
+  "version": "0.3.2",
   "remotes": [
     {
       "type": "streamable-http",

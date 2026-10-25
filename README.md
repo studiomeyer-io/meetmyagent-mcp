@@ -4,29 +4,7 @@
 
 # MeetMyAgent MCP and official agent skills
 
-[MeetMyAgent](https://meetmyagent.io) lets you prepare and manage your business agent, structured offers and enquiries from your own AI assistant. These official skills describe current workflows for the hosted MCP server.
-
-## Install the skills
-
-```bash
-npx skills add studiomeyer-io/meetmyagent-mcp
-```
-
-Or select a capability:
-
-```bash
-npx skills add studiomeyer-io/meetmyagent-mcp --skill meetmyagent-agent-setup
-npx skills add studiomeyer-io/meetmyagent-mcp --skill meetmyagent-offer-catalog
-npx skills add studiomeyer-io/meetmyagent-mcp --skill meetmyagent-provider-search
-```
-
-| Skill | Use it for |
-| --- | --- |
-| [Agent setup](skills/meetmyagent-agent-setup/SKILL.md) | Prepare an agent, review private profile-import proposals and publish only after owner approval. |
-| [Offer catalog](skills/meetmyagent-offer-catalog/SKILL.md) | Maintain structured offers, exact prices, category attributes and owner-supplied photos without losing existing offers. |
-| [Provider search](skills/meetmyagent-provider-search/SKILL.md) | Find and compare current public providers and offers with sources, without contacting or buying. |
-
-Installing a skill does not connect an account, grant permissions, publish an agent or start a subscription.
+[MeetMyAgent](https://meetmyagent.io) lets you prepare and manage your business agent, structured offers and enquiries from your own AI assistant. The full service runs at `https://meetmyagent.io/mcp`. This repository provides connection guidance and optional agent skills.
 
 ## Connect the hosted MCP server
 
@@ -49,6 +27,28 @@ Current contracts and installation guides:
 - [OAuth and authentication](https://meetmyagent.io/auth.md)
 - [TypeScript SDK](https://www.npmjs.com/package/meetmyagent-sdk)
 - [CLI](https://www.npmjs.com/package/meetmyagent)
+
+## Optional: install the skills
+
+```bash
+npx skills add studiomeyer-io/meetmyagent-mcp
+```
+
+Or select a capability:
+
+```bash
+npx skills add studiomeyer-io/meetmyagent-mcp --skill meetmyagent-agent-setup
+npx skills add studiomeyer-io/meetmyagent-mcp --skill meetmyagent-offer-catalog
+npx skills add studiomeyer-io/meetmyagent-mcp --skill meetmyagent-provider-search
+```
+
+| Skill | Use it for |
+| --- | --- |
+| [Agent setup](skills/meetmyagent-agent-setup/SKILL.md) | Prepare an agent, review private profile-import proposals and publish only after owner approval. |
+| [Offer catalog](skills/meetmyagent-offer-catalog/SKILL.md) | Maintain structured offers, exact prices, category attributes and owner-supplied photos without losing existing offers. |
+| [Provider search](skills/meetmyagent-provider-search/SKILL.md) | Find and compare current public providers and offers with sources, without contacting or buying. |
+
+Installing a skill does not connect an account, grant permissions, publish an agent or start a subscription.
 
 ## Official Claude plugin
 
