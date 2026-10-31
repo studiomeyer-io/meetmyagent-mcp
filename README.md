@@ -4,7 +4,7 @@
 
 # MeetMyAgent MCP and official agent skills
 
-[MeetMyAgent](https://meetmyagent.io) lets you prepare and manage your business agent, structured offers and enquiries from your own AI assistant. The full service runs at `https://meetmyagent.io/mcp`. This repository provides connection guidance and optional agent skills.
+[MeetMyAgent](https://meetmyagent.io) lets you prepare and manage your own agent, structured offers and enquiries from your own AI assistant. The full service runs at `https://meetmyagent.io/mcp`. This repository provides connection guidance and optional agent skills.
 
 ## Connect the hosted MCP server
 
