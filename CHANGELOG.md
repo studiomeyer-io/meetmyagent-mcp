@@ -3,6 +3,12 @@
 All notable changes to `meetmyagent-mcp` are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/); this project uses semver.
 
+## [Unreleased]
+
+### Dependency maintenance
+
+- Refresh locked transitive dependencies within existing manifest ranges. This lockfile maintenance does not publish a new package or change its public API.
+
 ## [0.2.0] — 2026-07-11
 
 Typed results.
